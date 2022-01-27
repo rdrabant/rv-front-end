@@ -3,25 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<html>
-<head>
 
-<link rel="stylesheet" href="/reg/resources/css/wrpv3.css" type="text/css"/>
-<title>Vehicle Search</title>
-</head>
 
-<body>
+
 <table border="0" cellspacing="0" cellpadding="0" style="width: 1200px">
-	  <tr>
-    	<td colspan="2">
-    	
-	    This is my side project to build an RV database. <br/>
-	    <a href='<spring:url value="/public/changelog/"/>' target="_blank">See changes and date here. </a><br/>
-	    - Robert Drabant
-    	
-    	</td>
-   	</tr>
-   	<tr>
+	 
     <tr>
     	<td colspan="2">
     	
@@ -240,7 +226,4 @@
 		</td>
 	</tr>
 </table>
-
-</body>
-</html>
 

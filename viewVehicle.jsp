@@ -3,59 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"  %>
 
+<%-- script for the stars --%>
 <script src="https://kit.fontawesome.com/60d3540ab5.js" crossorigin="anonymous"></script>
 
-<style>
 
-	.descContainer{
-			display:flex;
-			flex-wrap: wrap;
-		
-	}
-	
-	.descItems {
-		display:flex;
-		width: 483px; 
-		flex-direction: row;
-	/*
-		flex-wrap: nowrap;
-		
-		height: 220px; 
-		font-size: small;
-		margin: 10px;
-		*/
-	}
-	
-	
-	
-	.vidContainer{
-			display:flex;
-			flex-wrap: wrap;
-		
-	}
-	
-	.vid {
-		width: 336px; 
-		height: 220px; 
-		font-size: small;
-		margin: 10px;
-	}
-	
-	.body {width: 966px;}
-	.pageWidth {width: 966px;}
-	.halfWidth {width: 50%;}
-	.vidSpan {width: 280px; height: 220px}
-	.bold {font-weight: bold;}
-	
-	
-	 .fa-star {
-		cursor: pointer;
-		color: #dabd18b2;
-	  }
-	
-	
-</style>
 
 						<script type="text/javascript">
 					     	
@@ -99,13 +52,7 @@
 					     	
 					     </script>
 
-	<div class="pageWidth subheader" style="text-align: center;">
-		<a href='<spring:url value="/public/"/>'>
-		Click Here to go back to the search page
-		</a>
-		<br/>
-		<br/>		
-	</div>
+	
 		
 
 	<div class="pageWidth header bold" style="text-align: center;">
@@ -264,8 +211,11 @@
 		</c:if>
 		
 		
+		
+		
 		<tr>
 			<th style="font-weight: bold;" colspan="4">Review This RV
+			CATEGORIES <c:out value="${fn:length(requestScope.vehicleReviewForm.reviewItems)}"/> 
 			</th >
 		</tr>	
 		

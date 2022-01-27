@@ -5,6 +5,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
+	  This is my side project to build an RV database. <br/>
+	    <a href='<spring:url value="/public/changelog/"/>' target="_blank">See changes and date here. </a><br/>
+	    - Robert Drabant
+    	
+    	
 Initial move to a changelog. <br>
 <ul>
 
