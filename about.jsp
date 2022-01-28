@@ -9,10 +9,10 @@
 
 <ul>
 
-	<li>Robert Drabant<br/>
+	<li>
 		<div class="badge-base LI-profile-badge" 
 			data-locale="en_US" 
-			data-size="medium" 
+			data-size="small" 
 			data-theme="light" 
 			data-type="VERTICAL" 
 			data-vanity="robert-drabant" 

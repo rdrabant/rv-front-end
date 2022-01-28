@@ -85,18 +85,18 @@ try {
 	color: #dabd18b2;
 }
 
-ul {
+ul.navcss {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-li {
+li.navcss {
   float: left;
 }
 
-li a {
+li.navcss a.navcss {
   display: block;
   padding: 8px;
   background-color: #dddddd;
@@ -111,20 +111,20 @@ li a {
 	<%--Init on load is used in sessions to add loading screen if filters are used. --%>
 
 
-	<div class="subheader" style="text-align: center;">
+	<div class="subheader navcss" style="text-align: center;">
 		<nav style="display: inline;">
-			<ul>
-				<li>
-					<a href='<spring:url value="/public/"/>'> Home </a>
+			<ul class="navcss">
+				<li class="navcss">
+					<a class="navcss" href='<spring:url value="/public/"/>'> Home </a>
 				</li>
-				<li>
-					<a href='<spring:url value="/public/myReviews/"/>'> My Reviews </a>
+				<li class="navcss">
+					<a class="navcss" href='<spring:url value="/public/myReviews/"/>'> My Reviews </a>
 				</li>
-				<li>
-					<a href='<spring:url value="/public/changelog/"/>'> Changelog </a>
+				<li class="navcss">
+					<a class="navcss" href='<spring:url value="/public/changelog/"/>'> Changelog </a>
 				</li>
-				<li>
-					<a href='<spring:url value="/public/about/"/>'> About </a>
+				<li class="navcss">
+					<a class="navcss" href='<spring:url value="/public/about/"/>'> About </a>
 				</li>
 			</ul>
 		</nav>
