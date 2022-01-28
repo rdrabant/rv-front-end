@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"  %>
+<%--@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"  --%>
 
 <%-- script for the stars --%>
 <script src="https://kit.fontawesome.com/60d3540ab5.js" crossorigin="anonymous"></script>
@@ -83,7 +83,7 @@
 	
 	<div class="pageWidth subheader descContainer bold">Description</div>
 
-	<div class="pageWidth subheader descContainer">
+	<div class="pageWidth descContainer">
 			<c:out value="${requestScope.vehicle.description}" escapeXml="false"/>
 	</div>
 	
@@ -215,7 +215,7 @@
 		
 		<tr>
 			<th style="font-weight: bold;" colspan="4">Review This RV
-			CATEGORIES <c:out value="${fn:length(requestScope.vehicleReviewForm.reviewItems)}"/> 
+			<%--CATEGORIES <c:out value="${fn:length(requestScope.vehicleReviewForm.reviewItems)}"/>  --%>
 			</th >
 		</tr>	
 		

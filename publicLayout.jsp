@@ -29,6 +29,11 @@ try {
 <script type='text/javascript' src='<spring:url value="/resources/js/ajaxUtil.js"/>'></script--%>
 
 <style>
+
+body{
+padding: 10px;
+}
+
 .descContainer {
 	display: flex;
 	flex-wrap: wrap;
@@ -85,18 +90,18 @@ try {
 	color: #dabd18b2;
 }
 
-ul.navcss {
+ul.theNavCss {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-li.navcss {
+li.theNavCss {
   float: left;
 }
 
-li.navcss a.navcss {
+li.theNavCss a.theNavCss {
   display: block;
   padding: 8px;
   background-color: #dddddd;
@@ -111,26 +116,52 @@ li.navcss a.navcss {
 	<%--Init on load is used in sessions to add loading screen if filters are used. --%>
 
 
-	<div class="subheader navcss" style="text-align: center;">
+	<div class="subheader theNavCss" style="text-align: center;">
 		<nav style="display: inline;">
-			<ul class="navcss">
-				<li class="navcss">
-					<a class="navcss" href='<spring:url value="/public/"/>'> Home </a>
+			<ul class="theNavCss">
+				<li class="theNavCss">
+					<a class="theNavCss" href='<spring:url value="/public/"/>'> Home </a>
 				</li>
-				<li class="navcss">
-					<a class="navcss" href='<spring:url value="/public/myReviews/"/>'> My Reviews </a>
+				<li class="theNavCss">
+					<a class="theNavCss" href='<spring:url value="/public/myReviews/"/>'> My Reviews </a>
 				</li>
-				<li class="navcss">
-					<a class="navcss" href='<spring:url value="/public/changelog/"/>'> Changelog </a>
+				<li class="theNavCss">
+					<a class="theNavCss" href='<spring:url value="/public/changelog/"/>'> Changelog </a>
 				</li>
-				<li class="navcss">
-					<a class="navcss" href='<spring:url value="/public/about/"/>'> About </a>
+				<li class="theNavCss">
+					<a class="theNavCss" href='<spring:url value="/public/about/"/>'> About </a>
 				</li>
 			</ul>
 		</nav>
 	</div>
 
 
+
+		<c:if test="${not empty requestScope.adminMessage }">
+			<p>
+			<spring:message code="errors.header" />
+			<c:out value="${requestScope.adminMessage}" escapeXml="false" />
+			<spring:message code="errors.footer" /></p>
+		</c:if>
+		
+		<c:if test="${not empty requestScope.msgs }">
+			<spring:message code="msg.header" />
+				<c:forEach items="${requestScope.msgs}" var="msg" varStatus="theIndex">
+					<c:out value="${pageScope.msg}" escapeXml="false" />
+				</c:forEach>
+			<spring:message code="msg.footer" />
+		</c:if>
+		<c:if test="${not empty requestScope.errMsgs }">
+			
+			<spring:message code="errors.header" />
+				<spring:message code="Please.fix.the.errors.below"/><br/>
+				<c:forEach items="${requestScope.errMsgs}" var="err" varStatus="theIndex">
+					<c:out value="${pageScope.err}" escapeXml="false" /><br/>
+				</c:forEach>
+			<spring:message code="errors.footer" />
+		</c:if>
+			
+			
 	<!--  BEGIN CONTENT -->
 	<tiles:insertAttribute name="content" /><br>
 	<!--  END CONTENT --> 
