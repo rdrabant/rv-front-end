@@ -202,7 +202,7 @@
 	                
 					  <c:forEach var="vehicle" items="${requestScope.resultsBean.results}" varStatus="theIndex">
 					  	
-	                	<tr class='default<c:if test="${theIndex.count mod 2 != 0}">2</c:if>' <%-- <c:if test="${pageScope.vehicle.status eq 1}">style='background-color: red</c:if>--%> >
+	                	<tr class='default<c:if test="${theIndex.count mod 2 != 1}">2</c:if>' <%-- <c:if test="${pageScope.vehicle.status eq 1}">style='background-color: red</c:if>--%> >
 	                	
 		                  <td class="small">
 	                        <a href="<spring:url value='/public/viewVehicle/${pageScope.vehicle.uid}/'/>">

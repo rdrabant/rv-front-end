@@ -13,6 +13,14 @@
 Initial move to a changelog. <br>
 <ul>
 
+	
+	<li>1/30/21
+		<ul>
+		    <li>Added review system</li>
+		    <li>Added to version control so more than 1 developer can work on it at once</li>
+	    </ul>
+    </li>
+    
 	<li>9/21/21
 		<ul>
 		    <li>Chassis reworked on the basis, rvs can be available on multiple chassis</li>

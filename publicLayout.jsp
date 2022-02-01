@@ -123,7 +123,7 @@ li.theNavCss a.theNavCss {
 					<a class="theNavCss" href='<spring:url value="/public/"/>'> Home </a>
 				</li>
 				<li class="theNavCss">
-					<a class="theNavCss" href='<spring:url value="/public/myReviews/"/>'> My Reviews </a>
+					<a class="theNavCss" href='<spring:url value="/myReviews/"/>'> My Reviews </a>
 				</li>
 				<li class="theNavCss">
 					<a class="theNavCss" href='<spring:url value="/public/changelog/"/>'> Changelog </a>

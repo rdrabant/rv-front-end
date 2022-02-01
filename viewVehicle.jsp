@@ -4,54 +4,57 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%--@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"  --%>
-
-<%-- script for the stars --%>
-<script src="https://kit.fontawesome.com/60d3540ab5.js" crossorigin="anonymous"></script>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
+<sec:authorize access="isAuthenticated()">
 
-						<script type="text/javascript">
-					     	
-					     	function executeRating(stars, elementId) {
-					     		  const starClassActive = "rating__star" + elementId + " fas fa-star";
-					     		  const starClassInactive = "rating__star" + elementId + " far fa-star";
-					     		   
-					     		  const starsLength = stars.length;
-					     		  let i;
-					     		  stars.map((star) => {
-					     		    star.onclick = () => {
-					     		      i = stars.indexOf(star);
-					     		      
-					     		      let activeCount = -1;
-									  let notRated = false;
-					     		      
-					     		      if (star.className===starClassInactive) {
-					     		        activeCount = i + 1;
-					     		        for (i; i >= 0; --i) stars[i].className = starClassActive;
-					     		      } else {
-					     		    	//it was active, switch to inactive
-					     		    	if(i == 0){
-					     		    		notRated = true;
-					     		    	}
-					     		    	  
-					     		    	activeCount = i;
-					     		        for (i; i < starsLength; ++i) stars[i].className = starClassInactive;
-					     		      }
-					     		      /*alert('review count ' + activeCount);*/
-					     		      if(notRated){
-					     		    	document.getElementById(elementId).textContent = " - Not Rated";
-					     		    	document.getElementById(elementId + "hf").value = null;
-					     		      }else{
-					     		    	 document.getElementById(elementId).textContent = null;
-					     		    	 document.getElementById(elementId + "hf").value = activeCount;
-							     	  }
-					     		       
-					     		    };
-					     		  });
-					     		}
-					     	
-					     </script>
+	<%-- script for the stars --%>
+	<script src="https://kit.fontawesome.com/60d3540ab5.js" crossorigin="anonymous"></script>
 
+	<script type="text/javascript">
+     	
+     	function executeRating(stars, elementId) {
+     		  const starClassActive = "rating__star" + elementId + " fas fa-star";
+     		  const starClassInactive = "rating__star" + elementId + " far fa-star";
+     		   
+     		  const starsLength = stars.length;
+     		  let i;
+     		  stars.map((star) => {
+     		    star.onclick = () => {
+     		      i = stars.indexOf(star);
+     		      
+     		      let activeCount = -1;
+				  let notRated = false;
+     		      
+     		      if (star.className===starClassInactive) {
+     		        activeCount = i + 1;
+     		        for (i; i >= 0; --i) stars[i].className = starClassActive;
+     		      } else {
+     		    	//it was active, switch to inactive
+     		    	if(i == 0){
+     		    		notRated = true;
+     		    	}
+     		    	  
+     		    	activeCount = i;
+     		        for (i; i < starsLength; ++i) stars[i].className = starClassInactive;
+     		      }
+     		      /*alert('review count ' + activeCount);*/
+     		      if(notRated){
+     		    	document.getElementById(elementId).textContent = " - Not Rated";
+     		    	document.getElementById(elementId + "hf").value = null;
+     		      }else{
+     		    	 document.getElementById(elementId).textContent = null;
+     		    	 document.getElementById(elementId + "hf").value = activeCount;
+		     	  }
+     		       
+     		    };
+     		  });
+     		}
+     	
+     </script>
+
+</sec:authorize>
 	
 		
 
@@ -214,90 +217,141 @@
 		
 		
 		<tr>
-			<th style="font-weight: bold;" colspan="4">Review This RV
+			<th style="font-weight: bold;" colspan="4">
+			<br/><br/>
+			Review This RV
 			<%--CATEGORIES <c:out value="${fn:length(requestScope.vehicleReviewForm.reviewItems)}"/>  --%>
 			</th >
 		</tr>	
 		
-		<c:if test="${not empty requestScope.vehicleReviewForm.reviewItems }">
+		<sec:authorize access="!isAuthenticated()">
 			
-			<c:forEach items="${requestScope.vehicleReviewForm.reviewItems}" var="reviewCategory" varStatus="theIndex">
-			<%-- c:forEach items="${requestScope.reviewCategories}" var="reviewCategory" varStatus="theIndex"--%>
-				<c:if test='${theIndex.index % 2 == 0}'><tr></c:if>
-				<td style="font-weight: bold;" colspan="2">
-						<c:out value="${pageScope.reviewCategory.name}"/><span id = "${pageScope.reviewCategory.uid}"> - Not Rated</span>
-					     
-					     <%-- fas instead of far --%>
-						 <div class="rating">
-					         <i class="rating__star${pageScope.reviewCategory.uid} far fa-star"></i>
-					         <i class="rating__star${pageScope.reviewCategory.uid} far fa-star"></i>
-					         <i class="rating__star${pageScope.reviewCategory.uid} far fa-star"></i>
-					         <i class="rating__star${pageScope.reviewCategory.uid} far fa-star"></i>
-					         <i class="rating__star${pageScope.reviewCategory.uid} far fa-star"></i>
-					     </div>
-					     
-					     <script type="text/javascript">
-					     	
-					     	const ratingStars${pageScope.reviewCategory.uid} = [...document.getElementsByClassName("rating__star${pageScope.reviewCategory.uid}")];
-					     	executeRating(ratingStars${pageScope.reviewCategory.uid}, "${pageScope.reviewCategory.uid}");
-					     
-					     </script>
-						<br/>
+			<tr>
+				<td style="font-weight: bold;" colspan="4">
+					<a href="<spring:url value='/bounce/${requestScope.vehicle.uid}/'/>">Click Here to Login and Review This RV as well Save it to Your Favorites</a>
+					<br/><br/>
 				</td>
-				<c:if test='${theIndex.index % 2 != 0}'><!-- div 2 --></tr></c:if>	
-				<c:set scope="page" var="ratingRow" value="${pageScope.theIndex.index}" />	
-				<!-- RATING VAL <c:out value="${pageScope.ratingRow}"/> -->
-			</c:forEach>
-			<c:if test='${pageScope.ratingRow % 2 == 0}'><td></td></tr></c:if>	
+			</tr>		
 		
-		</c:if>
+		</sec:authorize>
 		
-		<tr>
-			<td colspan="4">
-			
-			<%-- 		
-			<form:form action="${formUrl}" method="POST" modelAttribute="vehicleReviewForm">
-			--%>
-			<form:form action="${formUrl}" method="POST" modelAttribute="vehicleReviewForm">
-			
-			<br/>
-			<form:input path="name" placeholder="Add a headline. What's MOST important?" maxlength="75" size="50"/><br/><br/>
-			
-				<form:textarea path="comments" 
-				cols="50"
-				rows="5"
-				placeholder="What did you like or dislike. What would feature would you most like to see added?"/>	
-			
-			<br/><br/>
-			
-			
-
-			<form:checkbox path="shareReview" value="true" /> Share My Review<br/><br/>
-								
-				<c:forEach items="${requestScope.vehicleReviewForm.reviewItems}" var="reviewItem" varStatus="theIndex">
-					<form:hidden path="reviewItems[${theIndex.index}].uid" /> 
-					<form:hidden path="reviewItems[${theIndex.index}].name" /> 
-					<form:hidden path="reviewItems[${theIndex.index}].rating" id="${reviewItem.uid}hf"/> 
-				</c:forEach>
+		<sec:authorize access="isAuthenticated()">
+		
+		
+			<c:if test="${not empty requestScope.vehicleReviewForm.reviewItems }">
 				
-				<input type="submit" value="Submit Review"/>
+				<c:forEach items="${requestScope.vehicleReviewForm.reviewItems}" var="reviewItem" varStatus="theIndex">
+				<%-- c:forEach items="${requestScope.reviewCategories}" var="reviewItem" varStatus="theIndex"--%>
+					<c:if test='${theIndex.index % 2 == 0}'><tr></c:if>
+					<td style="font-weight: bold;" colspan="2">
+							<c:out value="${pageScope.reviewItem.name}"/><span id = "${pageScope.reviewItem.uid}">
+							<c:if test="${pageScope.reviewItem eq null || pageScope.reviewItem.rating eq null}"> - Not Rated</c:if></span>
+						     <%-- RATING: "${pageScope.reviewItem.rating}" --%>
+							 <div class="rating">
+							 	
+							 	<c:if test="${pageScope.reviewItem eq null || pageScope.reviewItem.rating eq null}">
+							         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+							         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+							         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+							         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+							         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+						         </c:if>
+						         
+						         <c:if test="${pageScope.reviewItem ne null && pageScope.reviewItem.rating ne null}">
+						         	<%-- Since it's not null, we know we have at least 1 star. So Allways checked default on initial load --%>	
+							         <i class="rating__star${pageScope.reviewItem.uid} fas fa-star"></i>
+							         
+							         <c:if test="${pageScope.reviewItem.rating ge 2}">
+								         <i class="rating__star${pageScope.reviewItem.uid} fas fa-star"></i>
+							         </c:if>
+							         <c:if test="${pageScope.reviewItem.rating ge 3}">
+								         <i class="rating__star${pageScope.reviewItem.uid} fas fa-star"></i>
+							         </c:if>
+							         <c:if test="${pageScope.reviewItem.rating ge 4}">
+								         <i class="rating__star${pageScope.reviewItem.uid} fas fa-star"></i>
+							         </c:if>
+							         <c:if test="${pageScope.reviewItem.rating ge 5}">
+								         <i class="rating__star${pageScope.reviewItem.uid} fas fa-star"></i>
+							         </c:if>
+							         
+							         <c:if test="${pageScope.reviewItem.rating lt 2}">
+								         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+							         </c:if>
+							         <c:if test="${pageScope.reviewItem.rating lt 3}">
+								         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+							         </c:if>
+							         <c:if test="${pageScope.reviewItem.rating lt 4}">
+								         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+							         </c:if>
+							         <c:if test="${pageScope.reviewItem.rating lt 5}">
+								         <i class="rating__star${pageScope.reviewItem.uid} far fa-star"></i>
+							         </c:if>
+						         </c:if>
+						     </div>
+						     
+						     <script type="text/javascript">
+						     	
+						     	const ratingStars${pageScope.reviewItem.uid} = [...document.getElementsByClassName("rating__star${pageScope.reviewItem.uid}")];
+						     	executeRating(ratingStars${pageScope.reviewItem.uid}, "${pageScope.reviewItem.uid}");
+						     
+						     </script>
+							<br/>
+					</td>
+					<c:if test='${theIndex.index % 2 != 0}'><!-- div 2 --></tr></c:if>	
+					<c:set scope="page" var="ratingRow" value="${pageScope.theIndex.index}" />	
+					<!-- RATING VAL <c:out value="${pageScope.ratingRow}"/> -->
+				</c:forEach>
+				<c:if test='${pageScope.ratingRow % 2 == 0}'><td></td></tr></c:if>	
+			
+			</c:if>
+			
+			<tr>
+				<td colspan="4">
+				
+				<%-- 		
+				<form:form action="${formUrl}" method="POST" modelAttribute="vehicleReviewForm">
+				--%>
+				<form:form action="${formUrl}" method="POST" modelAttribute="vehicleReviewForm">
+				
+				<br/>
+				<form:input path="name" placeholder="Add a headline. What's MOST important?" maxlength="75" size="50"/><br/><br/>
+				
+					<form:textarea path="comments" 
+					cols="50"
+					rows="5"
+					placeholder="What did you like or dislike. What would feature would you most like to see added?"/>	
+				
 				<br/><br/>
 				
-			<%-- --%>
-			</form:form>
-			
-			
-			
-			</td>
-		</tr>
 				
+	
+				<form:checkbox path="shareReview" value="true" /> Share My Review<br/><br/>
+									
+					<c:forEach items="${requestScope.vehicleReviewForm.reviewItems}" var="reviewItem" varStatus="theIndex">
+						<form:hidden path="reviewItems[${theIndex.index}].uid" /> 
+						<form:hidden path="reviewItems[${theIndex.index}].name" /> 
+						<form:hidden path="reviewItems[${theIndex.index}].rating" id="${reviewItem.uid}hf"/> 
+					</c:forEach>
+					
+					<input type="submit" value="Submit Review"/>
+					<br/><br/>
+					
+				<%-- --%>
+				</form:form>
+				
+				
+				
+				</td>
+			</tr>
+				
+		</sec:authorize>
 			
 		
 		
 		
 		
 		<tr>
-			<td style="font-weight: bold;" colspan="4">This RV<br/>
+			<td style="font-weight: bold;" colspan="4">Scan this QR Code to Bring up this RV on Your Phone<br/>
 			
 				<img alt="QR Code to Scan for RV" style="width: 70px; height: 70px" src='<spring:url value="/images/rv/${requestScope.vehicle.uid}.png"/>'>
 			</td>
